@@ -2,19 +2,13 @@ pipeline {
     agent {
         docker {
             image 'justb4/jmeter:5.5'
-            args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/tmp'
+            args '-u root:root'
         }
     }
     stages {
-              stage('run jmeter tests') {
+        stage('Run JMeter Tests') {
             steps {
-                script {
-                    
-                    def jmeterTestFiles = findFiles(glob: 'src/test/jmeter/Plan de test departements.jmx')
-                    for (def testFile : jmeterTestFiles) {
-                        sh "jmeter -n -t ${testFile} -l ${testFile}.jtl"
-                    }
-                }
+                sh 'jmeter -n -t src/test/jmeter/Plan\ de\ test\ departements.jmx -l src/test/jmeter/Plan\ de\ test\ departements.jtl'
             }
         }
     }
