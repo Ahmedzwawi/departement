@@ -9,8 +9,6 @@ pipeline {
         stage('Run JMeter Tests') {
             steps {
                 sh 'mvn clean install -DskipTests'
-                sh 'wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz'
-
                 sh 'mvn jmeter:configure'
                 sh 'mvn jmeter:jmeter'
             }
