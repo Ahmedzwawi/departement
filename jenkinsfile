@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('build and install') {
             steps {
-                sh 'docker pull alpine/jmeter:5'
-                echo 'JMeter container is ready'
+             image 'justb4/jmeter:5.5'
+
             }
         }
 
