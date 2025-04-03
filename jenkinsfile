@@ -14,8 +14,8 @@ pipeline {
 
         stage('run jmeter tests') {
             steps {
-                sh 'apt-get install -y maven'
-
+                sh 'mvn install -DskipTests'
+                sh 'mvn -version'
                 // Exécution des tests JMeter
                 sh 'mvn jmeter:jmeter -DtestFile=src/test/jmeter/Plandetestdepartements.jmx'
             }
