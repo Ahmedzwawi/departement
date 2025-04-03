@@ -1,3 +1,0 @@
-timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
-1743667252937,65,Requête HTTP,200,OK,Groupe d'unités Dep_Api 1-1,text,true,,2085,119,1,2,http://192.168.1.95:3000/,59,0,31
-1743667252784,2123,getAll,200,OK,Groupe d'unités Dep_BDD 2-1,text,true,,13822049,0,1,1,null,1393,0,626

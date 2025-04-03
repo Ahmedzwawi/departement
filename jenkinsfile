@@ -1,14 +1,25 @@
 pipeline {
     agent {
         docker {
-            image 'justb4/jmeter:5.5'
+            image 'maven:3.8.6-openjdk-11'
             args '-u root:root'
         }
     }
     stages {
         stage('Run JMeter Tests') {
             steps {
-                sh 'jmeter -n -t src/test/jmeter/Plandetestdepartements.jmx'
+                sh 'mvn clean install -DskipTests'
+
+
+
+
+
+                // Install JMeter   
+
+                sh 'wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz'
+
+
+                sh 'mvn jmeter:jmeter'
             }
         }
     }
