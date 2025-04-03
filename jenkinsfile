@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Run JMeter Tests') {
             steps {
-                sh 'jmeter -n -t src/test/jmeter/Plan\ de\ test\ departements.jmx -l src/test/jmeter/Plan\ de\ test\ departements.jtl'
+                sh 'jmeter -n -t src/test/jmeter/Plandetestdepartements.jmx -l src/test/jmeter/Plandetestdepartements.jtl'
             }
         }
     }
