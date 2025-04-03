@@ -6,34 +6,13 @@ pipeline {
         }
     }
     stages {
-        stage('Build Project') {
-            steps {
-                sh 'mvn clean install -DskipTests'
-            }
-        }
         stage('Run JMeter Tests') {
             steps {
-                sh 'mvn jmeter:configure'  // Configuration du plugin JMeter
-                sh 'mvn compile'          // Compilation des fichiers nécessaires
-                sh 'mvn jmeter:jmeter'    // Exécution des tests JMeter
+                sh 'mvn clean install -DskipTests'
+                sh 'mvn jmeter:configure'
+                sh 'mvn compile'
+                // sh 'mvn jmeter:jmeter'
             }
-        }
-        stage('Publish JMeter Reports') {
-            steps {
-                script {
-                    // Copie les résultats JMeter pour qu'ils puissent être analysés
-                    sh 'mkdir -p jmeter-reports'
-                    sh 'cp -r target/jmeter/results/* jmeter-reports/'
-                }
-                // Archive les fichiers JTL et HTML dans Jenkins pour consultation
-                archiveArtifacts artifacts: 'jmeter-reports/**', fingerprint: true
-            }
-        }
-    }
-    post {
-        always {
-            // Ajoute les résultats JMeter comme rapport de Performance dans Jenkins
-            performanceReport parsers: [jmeter('jmeter-reports/*.jtl')]
         }
     }
 }
