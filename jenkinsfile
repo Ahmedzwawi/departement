@@ -15,7 +15,7 @@ pipeline {
         stage('run jmeter tests') {
             steps {
                 // Exécution des tests JMeter
-                sh 'mvn jmeter:jmeter -DtestFile=src\test\jmeter\Plandetestdepartements.jmx'
+                sh 'mvn jmeter:jmeter -DtestFile=src/test/jmeter/Plandetestdepartements.jmx'
             }
         }
     }
