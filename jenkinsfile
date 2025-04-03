@@ -35,9 +35,7 @@ pipeline {
             ])
             
             // 🔹 Ajoute les résultats au plugin Performance
-            performanceReport parsers: [
-                [glob: 'target/jmeter/results/*.jtl', parserType: 'JMeter']
-            ]
+            performanceReport sourceDataFiles: 'target/jmeter/results/*.jtl', parserType: 'JMeter'
         }
     }
 }
