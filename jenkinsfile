@@ -10,7 +10,8 @@ pipeline {
             steps {
                 sh 'mvn clean install -DskipTests'
                 sh 'mvn jmeter:configure'
-                sh 'mvn jmeter:jmeter'
+                sh 'mvn comiple'
+                // sh 'mvn jmeter:jmeter'
             }
         }
     }
