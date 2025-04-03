@@ -110,7 +110,11 @@
 				<configuration>
         <generateReports>true</generateReports>
        
-					
+					      <resultsDirectory>target/jmeter/results</resultsDirectory>
+        <generateReports>true</generateReports>
+        <testFilesIncluded>**/*.jmx</testFilesIncluded> <!-- Assurez-vous que vos fichiers .jmx sont ici -->
+        <!-- Définir explicitement le format de résultat comme .jtl -->
+        <resultFileFormat>JTL</resultFileFormat> 
 					<jmeterExtensions>
 						<artifact>kg.apc:jmeter-plugins-webdriver:4.13.0.2</artifact>
 					</jmeterExtensions>

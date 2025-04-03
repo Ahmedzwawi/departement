@@ -6,36 +6,21 @@ pipeline {
         }
     }
     stages {
-        stage('Build Project') {
+        stage('Run  Tests') {
             steps {
                 sh 'mvn clean install -DskipTests'
-            }
-        }
-        
-        stage('Run JMeter Tests') {
-            steps {
-                sh 'mvn jmeter:jmeter -DgenerateReports=true -DresultsDirectory=target/jmeter/results'
-            }
-        }
-    }
+                sh 'mvn jmeter:configure'
+                sh 'mvn compile'
+                // sh 'mvn jmeter:jmeter'
 
-    post {
-        always {
-            // 🔹 Archive les résultats bruts pour Jenkins
-            archiveArtifacts artifacts: 'target/jmeter/results/**/*', allowEmptyArchive: true
-            
-            // 🔹 Publie le rapport HTML de JMeter
-            publishHTML(target: [
-                allowMissing: true,
-                alwaysLinkToLastBuild: false,
-                keepAll: true,
-                reportDir: 'target/jmeter/results',
-                reportFiles: 'index.html',
-                reportName: 'JMeter Performance Report'
-            ])
-            
-            // 🔹 Ajoute les résultats au plugin Performance
-            performanceReport sourceDataFiles: 'target/jmeter/results/*.jtl', parserType: 'JMeter'
+            }
+        }
+         stage('Run JMeter ') {
+            steps {
+               
+                sh 'mvn jmeter:jmeter'
+                
+            }
         }
     }
 }
