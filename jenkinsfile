@@ -2,12 +2,11 @@ pipeline {
     agent any
     stages {
         stage('build and install') {
-            agent {
-                docker {
-                    image 'alpine/jmeter:5'
-                    args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/tmp'
-                }
-            }
+            agent any
+steps {
+    sh 'docker pull alpine/jmeter:5'
+}
+
             steps {
                 echo 'JMeter container is ready'
             }
