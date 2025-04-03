@@ -2,20 +2,16 @@ pipeline {
     agent any
     stages {
         stage('build and install') {
-            agent any
-steps {
-    sh 'docker pull alpine/jmeter:5'
-}
-
             steps {
+                sh 'docker pull alpine/jmeter:5'
                 echo 'JMeter container is ready'
             }
         }
 
         stage('run jmeter tests') {
             steps {
-                sh 'jmeter -n -t src/test/jmeter/Plan_de_test_departements.jmx'}
+                sh 'jmeter -n -t src/test/jmeter/Plan_de_test_departements.jmx'
+            }
         }
     }
-
 }
