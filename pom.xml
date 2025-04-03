@@ -103,8 +103,17 @@
 						</goals>
 					</execution>
 				</executions>
+				
 				<configuration>
-					<generateReports>true</generateReports>
+				<resultsDirectory>target/jmeter/results</resultsDirectory>
+        <generateReports>true</generateReports>
+        <postProcessors>
+            <postProcessor>
+                <name>Summary Report</name>
+                <className>org.apache.jmeter.report.dashboard.ReportGenerator</className>
+                <outputDirectory>target/jmeter/results</outputDirectory>
+            </postProcessor>
+        </postProcessors>
 					
 					<jmeterExtensions>
 						<artifact>kg.apc:jmeter-plugins-webdriver:4.13.0.2</artifact>
