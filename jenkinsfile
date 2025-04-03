@@ -1,15 +1,20 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'justb4/jmeter:5.5'
+        }
+    }
     stages {
         stage('build and install') {
             steps {
-             image 'justb4/jmeter:5.5'
-
+                // Installe les dépendances ou autres étapes nécessaires si besoin
+                echo 'Building and installing...'
             }
         }
 
         stage('run jmeter tests') {
             steps {
+                // Exécution des tests JMeter
                 sh 'jmeter -n -t src/test/jmeter/Plandetestdepartements.jmx'
             }
         }
