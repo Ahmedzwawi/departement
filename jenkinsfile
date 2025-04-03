@@ -6,24 +6,13 @@ pipeline {
         }
     }
     stages {
-        stage('Install dependencies') {
-            steps {
-                // Installe les dépendances Maven et JMeter
-                sh 'mvn clean install -DskipTests'
-                sh 'wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz'
-                sh 'tar -xvzf apache-jmeter-5.5.tgz'
-            }
-        }
-        stage('Configure JMeter') {
-            steps {
-                // Configure le plugin JMeter pour créer le fichier config.json
-                sh 'mvn jmeter:configure'
-            }
-        }
         stage('Run JMeter Tests') {
             steps {
-                // Lance les tests JMeter
-                sh 'mvn jmeter:jmeter -DtestFile=src/test/jmeter/Plandetestdepartements.jmx'
+                sh 'mvn clean install -DskipTests'
+                sh 'wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz'
+
+
+                sh 'mvn jmeter:jmeter'
             }
         }
     }
