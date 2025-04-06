@@ -22,38 +22,15 @@ pipeline {
             }
         }
     }
- post {
-    always {
-        def jobName = env.JOB_NAME
-        def buildNumber = env.BUILD_NUMBER
-        def buildUrl = env.BUILD_URL
-        def result = currentBuild.currentResult
-        def duration = currentBuild.durationString
-        def startedAt = new Date(currentBuild.startTimeInMillis)
-        def triggeredBy = currentBuild.getBuildCauses()[0]?.userName ?: "Automatique ou inconnu"
-
+    post {
+        always {
         mail(
             to: 'ahmedzwawi46@gmail.com',
-            subject: "Pipeline ${jobName} - Build #${buildNumber} - ${result}",
-            body: """\
-Bonjour Ahmed 👋
-
-Le pipeline **${jobName}** a terminé avec le statut : **${result}**
-
-🔧 Détails du build :
-- 🆔 Build numéro : ${buildNumber}
-- 🕒 Démarré à : ${startedAt}
-- ⏱️ Durée : ${duration}
-- 👤 Déclenché par : ${triggeredBy}
-- 🔗 Lien Jenkins : ${buildUrl}
-
-Cordialement,  
-Ton Jenkins préféré 🤖
-"""
+            subject: "Pipeline ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+            body: "Le pipeline ${env.JOB_NAME} a terminé avec le statut ${currentBuild.currentResult}. Voir les détails ici: ${env.BUILD_URL}"
         )
     }
 }
-
 
 
 }
