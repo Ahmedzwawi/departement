@@ -17,10 +17,20 @@ pipeline {
         }
          stage('Run JMeter ') {
             steps {
-               
                 sh 'mvn jmeter:jmeter'
                 
             }
         }
     }
+    post {
+        always {
+        mail(
+            to: 'ahmedzwawi46@gmail.com',
+            subject: "Pipeline ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+            body: "Le pipeline ${env.JOB_NAME} a terminé avec le statut ${currentBuild.currentResult}. Voir les détails ici: ${env.BUILD_URL}"
+        )
+    }
+}
+
+
 }
