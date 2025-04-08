@@ -31,9 +31,8 @@ pipeline {
 Bonjour,
 
 Le pipeline : ${env.JOB_NAME} (Build #${env.BUILD_NUMBER}) s'est exécuté avec le statut : ${currentBuild.currentResult}.
+
 👤${currentBuild.getBuildCauses()[0]?.shortDescription ?: 'Non spécifié'}
-
-
 📅 Date       : ${new Date().format("dd/MM/yyyy HH:mm", TimeZone.getTimeZone('Europe/Paris'))}
 ⏱️ Durée     : ${currentBuild.durationString}
 🔀 Branche    : ${env.GIT_BRANCH ?: 'Branche non définie'}
