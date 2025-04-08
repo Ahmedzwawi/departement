@@ -6,64 +6,48 @@ pipeline {
         }
     }
     stages {
-        stage('Run Tests') {
+        stage('Run  Tests') {
             steps {
-                // Exécution des tests avec JaCoCo pour générer le rapport de couverture de code
-                sh 'mvn clean install -DskipTests'  // Compile sans tests
-                sh 'mvn test'  // Lance les tests et génère les rapports JaCoCo
+                sh 'mvn clean install -DskipTests'
+                sh 'mvn jmeter:configure'
+                sh 'mvn compile'
+                // sh 'mvn jmeter:jmeter'
+
             }
         }
-        stage('Run JMeter') {
+         stage('Run JMeter ') {
             steps {
                 sh 'mvn jmeter:jmeter'
-            }
-        }
-        stage('Generate JaCoCo Report') {
-            steps {
-                // Génére le rapport JaCoCo
-                sh 'mvn jacoco:report'
+                
             }
         }
     }
-    post {
-        always {
-            // Envoie un e-mail avec les détails du build
-            mail(
-                to: 'ahmedzwawi46@gmail.com',
-                subject: "[Jenkins] 📦 ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
-                body: """\
+   post {
+    always {
+        mail(
+            to: 'ahmedzwawi46@gmail.com',
+            subject: "[Jenkins] 📦 ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+            body: """\
 Bonjour,
 
 Le pipeline : ${env.JOB_NAME} (Build #${env.BUILD_NUMBER}) s'est exécuté avec le statut : ${currentBuild.currentResult}.
 
-👤 ${currentBuild.getBuildCauses()[0]?.shortDescription ?: 'Non spécifié'}
+👤${currentBuild.getBuildCauses()[0]?.shortDescription ?: 'Non spécifié'}
+
 📅 Date       : ${new Date().format("dd/MM/yyyy HH:mm", TimeZone.getTimeZone('Europe/Paris'))}
 ⏱️ Durée     : ${currentBuild.durationString}
 🔀 Branche    : ${env.GIT_BRANCH ?: 'Branche non définie'}
 🔗 Lien vers le build : ${env.BUILD_URL}
 📄 Console output : ${env.BUILD_URL}console
 
-Cordialement,  
-Votre Jenkins préféré
-"""
-            )
-        }
-        success {
-            // Ajouter l'URL du rapport JaCoCo dans l'email en cas de succès
-            mail(
-                to: 'ahmedzwawi46@gmail.com',
-                subject: "[Jenkins] 📦 ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
-                body: """\
-Bonjour,
-
-Le pipeline : ${env.JOB_NAME} (Build #${env.BUILD_NUMBER}) s'est exécuté avec succès.
-
-👉 Rapport JaCoCo : ${env.BUILD_URL}artifact/target/site/jacoco/index.html
 
 Cordialement,  
 Votre Jenkins préféré
 """
-            )
-        }
+        )
     }
+}
+
+
+
 }
