@@ -30,7 +30,7 @@ pipeline {
             body: """\
 Bonjour,
 
-Le pipeline : *${env.JOB_NAME}* (Build #${env.BUILD_NUMBER}) s'est exécuté avec le statut : *${currentBuild.currentResult}*.
+Le pipeline : ${env.JOB_NAME} (Build #${env.BUILD_NUMBER}) s'est exécuté avec le statut : ${currentBuild.currentResult}.
 
 📅 Date       : ${new Date().format("dd/MM/yyyy HH:mm", TimeZone.getTimeZone('Europe/Paris'))}
 ⏱️ Durée     : ${currentBuild.durationString}
@@ -41,7 +41,7 @@ Le pipeline : *${env.JOB_NAME}* (Build #${env.BUILD_NUMBER}) s'est exécuté ave
 
 
 Cordialement,  
-Votre Jenkins préféré 🤖
+Votre Jenkins préféré
 """
         )
     }
