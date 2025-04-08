@@ -22,15 +22,27 @@ pipeline {
             }
         }
     }
-    post {
-        always {
+   post {
+    always {
         mail(
             to: 'ahmedzwawi46@gmail.com',
-            subject: "Pipeline ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
-            body: "Le pipeline ${env.JOB_NAME} a terminé avec le statut ${currentBuild.currentResult}. Voir les détails ici: ${env.BUILD_URL}"
+            subject: "[Jenkins] 📦 ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+            body: """\
+Bonjour,
+
+Le pipeline *${env.JOB_NAME}* (Build #${env.BUILD_NUMBER}) s'est terminé avec le statut : *${currentBuild.currentResult}*.
+
+📅 Date : ${new Date().format("dd/MM/yyyy HH:mm", TimeZone.getTimeZone('Europe/Paris'))}
+🔗 Lien vers le build : ${env.BUILD_URL}
+👷 Déclenché par : ${env.BUILD_CAUSE ?: 'non spécifié'}
+
+Cordialement,
+Votre Jenkins préféré 🤖
+"""
         )
     }
 }
+
 
 
 }
